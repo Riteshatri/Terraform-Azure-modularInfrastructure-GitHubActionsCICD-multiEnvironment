@@ -113,7 +113,6 @@ nics = {
     subnet_name = "dusrasubnet"
 
 
-
     ip_configurations = {
       ipconfig2 = {
         ip_config_name        = "dusra-internal"
