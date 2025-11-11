@@ -22,10 +22,15 @@ resource "azurerm_network_interface" "nic" {
       private_ip_address_allocation = ip_configuration.value.private_ip_allocation
       private_ip_address            = ip_configuration.value.private_ip_allocation == "Static" ? ip_configuration.value.private_ip_address : null
 
-      public_ip_address_id = (
-        try(ip_configuration.value.public_ip_name, null) != null &&
-        # contains(keys(var.pip_ids), ip_configuration.value.public_ip_name)
-        ip_configuration.value.public_ip_name != null && contains(keys(var.pip_ids), ip_configuration.value.public_ip_name)
+      # public_ip_address_id = (
+      #   try(ip_configuration.value.public_ip_name, null) != null &&
+      #   # contains(keys(var.pip_ids), ip_configuration.value.public_ip_name)
+      #   ip_configuration.value.public_ip_name != null && contains(keys(var.pip_ids), ip_configuration.value.public_ip_name)
+      # ) ? var.pip_ids[ip_configuration.value.public_ip_name] : null
+
+      public_ip_address_id = try(
+        ip_configuration.value.public_ip_name != null && contains(keys(var.pip_ids), ip_configuration.value.public_ip_name),
+        false
       ) ? var.pip_ids[ip_configuration.value.public_ip_name] : null
 
       primary = try(ip_configuration.value.primary, false)
