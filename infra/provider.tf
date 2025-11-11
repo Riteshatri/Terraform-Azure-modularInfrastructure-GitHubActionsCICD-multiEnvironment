@@ -9,6 +9,7 @@ terraform {
 
 provider "azurerm" {
   features {}
+  use_oidc = true  // It tells the Terraform Azure provider to use the federated token that the azure/login@v2 step injects automatically.
   #   subscription_id = "enter-your-subscription-id-here"
 }
 
