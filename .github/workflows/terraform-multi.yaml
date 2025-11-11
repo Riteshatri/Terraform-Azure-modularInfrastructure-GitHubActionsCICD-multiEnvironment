@@ -137,7 +137,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5.0.0   # 👈 ADD THIS
     
-    steps:
+    
       - name: Terraform fmt
         run: terraform fmt 
 
