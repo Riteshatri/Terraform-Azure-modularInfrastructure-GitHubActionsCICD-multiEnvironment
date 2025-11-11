@@ -85,6 +85,15 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      # 👇 ADD THIS: Export OIDC vars so Terraform can use them
+      - name: Export Azure OIDC Environment Variables
+        run: |
+          echo "ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
+          echo "ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
+          echo "ARM_USE_OIDC=true" >> $GITHUB_ENV
+
+
       - name: Debug ARM OIDC Environment Variables
         run: |
           echo "ARM_CLIENT_ID: $ARM_CLIENT_ID"
